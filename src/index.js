@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./index.css";
 
 
 const pizzaData = [
@@ -50,17 +51,72 @@ const pizzaData = [
 // Each component can return exactly one element
 function App(){
     return (
-    <div>
-     <img src="pizzas/spinaci.jpg" alt="Pizza spinaci"></img>   
-    <h1> Hello React</h1>
-    <Pizza/>
+    <div className="container">
+    <Header/>
+    <Menu/>
+    <Footer/>
     </div> 
     );
 }
 
-function Pizza(){
-   return <h2>Pizza</h2>; 
+
+
+function Header(){
+  // const style = { color: "red" , fontSize: "32px" , textTransform: "uppercase"};
+  const style = {};
+ 
+
+  return(
+    <header className="header">
+    <h1 style={style} >Fast React Pizza</h1> 
+    </header>
+  ); 
 }
+
+function Menu(){
+ return( 
+ <main className="menu">
+ <h2>Our Menu</h2>
+ <Pizza 
+ name="Pizza spinaci"
+ ingredients ="Tomato , mozarella, spinach, and ricotta cheese"
+ photoName="pizzas/spinaci.jpg"
+ price="10"
+  />
+ </main>
+ ); 
+}
+
+
+function Pizza(props){
+  return (
+  <div>
+    <img src={props.photoName}></img>   
+   <h3> {props.name} </h3>
+   <p>{props.ingredients}</p>
+  </div>
+  );
+}
+
+function Footer(){
+
+  const hour = new Date().getHours();
+  const openHour = 12;
+  const closeHour = 22
+  const isOpen = hour >= openHour && hour <= closeHour;
+
+  // if(hour >= openHour && hour <= closeHour) alert("We're currently  Open !")
+  // else alert("We're currently  Closed !")
+  
+
+  return <footer>{hour}"We're currently  Open !"</footer>;
+
+  // return React.createElement("footer", null , "We're currently  Open !");
+}
+
+
+
+
 
 // React v18
 const root = ReactDOM.createRoot(document.getElementById('root'));
