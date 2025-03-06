@@ -48,6 +48,8 @@ const pizzaData = [
     },
   ];
 
+
+
 // Each component can return exactly one element
 function App(){
     return (
@@ -74,37 +76,56 @@ function Header(){
 }
 
 function Menu(){
+ 
+   const pizzas = pizzaData;
+  //const pizzas = [];
+  const numPizzas = pizzas.length;
+
+
+  
+
  return( 
  <main className="menu">
  <h2>Our Menu</h2>
- <Pizza 
+
+ {numPizzas > 0 && 
+ ( <ul className="pizzas">
+  {/* {pizzaData.map((pizza) =>  (<Pizza name={pizza.name} photoName={pizza.photoName} ingredients={pizza.ingredients} /> ))} */}
+  
+  {/* usually we pass entire object as below   and should have a key unique key*/}
+  {pizzas.map((pizza) =>  (<Pizza pizzaObj = {pizza}  key={pizza.name}/> ))}
+   
+ </ul>)}
+
+
+ {/* <Pizza 
  name="Pizza spinaci"
  ingredients ="Tomato , mushrooms"
  photoName="pizzas/spinaci.jpg"
- price={10}
   />
  <Pizza 
  name="Pizza Funghi"
  ingredients ="Tomato , mozarella, spinach, and ricotta cheese"
  photoName="pizzas/funghi.jpg"
  price={12}
-  /> 
+  />  */}
  </main>
  ); 
 }
 
 
 function Pizza(props){
+  console.log(props);
   return (
-  <div className="pizza">
-    <img src={props.photoName}></img>  
+  <li className="pizza">
+    <img src={props.pizzaObj.photoName}></img>  
     <div className="">
-    <h3> {props.name} </h3>
-    <p>{props.ingredients}</p>
-    <span>{props.price + 3}</span>
+    <h3> {props.pizzaObj.name} </h3>
+    <p>{props.pizzaObj.ingredients}</p>
+    <span>{props.pizzaObj.price + 3}</span>
     </div> 
  
-  </div>
+  </li>
   );
 }
 
@@ -119,7 +140,12 @@ function Footer(){
   // else alert("We're currently  Closed !")
   
 
-  return <footer>{hour}"We're currently  Open !"</footer>;
+  return <footer>{isOpen && (
+   <div className="order">
+  <p>We're open unti; {closeHour}:00. Come visit us or oder online.</p>
+  <button className="btn">Order</button>
+   </div>  
+)}</footer>;
 
   // return React.createElement("footer", null , "We're currently  Open !");
 }
