@@ -89,14 +89,24 @@ function Menu(){
  <h2>Our Menu</h2>
 
  {numPizzas > 0 ? 
- ( <ul className="pizzas">
+ ( 
+  <>
+  <p>
+  Authentic Italian cuisine. 6 creative dishes to choose from. All
+  from our stone oven, all organic, all delicious.
+</p>
+
+ <ul className="pizzas">
   {/* {pizzaData.map((pizza) =>  (<Pizza name={pizza.name} photoName={pizza.photoName} ingredients={pizza.ingredients} /> ))} */}
   
   {/* usually we pass entire object as below   and should have a key unique key*/}
   {pizzas.map((pizza) =>  (<Pizza pizzaObj = {pizza}  key={pizza.name}/> ))}
    
- </ul>) 
- : <p>We're still working on our menu . Please come back later</p>  }
+ </ul>
+ 
+ </>
+ ) :
+  <p>We're still working on our menu . Please come back later</p>  }
 
 
  {/* <Pizza 
@@ -115,20 +125,53 @@ function Menu(){
 }
 
 
-function Pizza(props){
-  console.log(props);
+// simply using props 
+// function Pizza(props){
+//   console.log(props);
+
+//   if(props.pizzaObj.soldOut) return null;
+
+//   return (
+//   <li className="pizza">
+//     <img src={props.pizzaObj.photoName}></img>  
+//     <div className="">
+//     <h3> {props.pizzaObj.name} </h3>
+//     <p>{props.pizzaObj.ingredients}</p>
+//     <span>{props.pizzaObj.price + 3}</span>
+//     </div> 
+ 
+//   </li>
+//   );
+// }
+
+
+// Using Destructuring props
+function Pizza({pizzaObj}){
+
+
+  // if(pizzaObj.soldOut) return null;
+
   return (
-  <li className="pizza">
-    <img src={props.pizzaObj.photoName}></img>  
+  <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
+    <img src={pizzaObj.photoName}></img>  
     <div className="">
-    <h3> {props.pizzaObj.name} </h3>
-    <p>{props.pizzaObj.ingredients}</p>
-    <span>{props.pizzaObj.price + 3}</span>
+    <h3> {pizzaObj.name} </h3>
+    <p>{pizzaObj.ingredients}</p>
+     {/* {pizzaObj.soldOut ? (
+      <span>SOLD OUT</span>
+     ) : (
+      <span>{pizzaObj.price}</span>
+     ) } */}
+
+     <span>{pizzaObj.soldOut ? "SOLD OUT" : pizzaObj.price}</span>
     </div> 
  
   </li>
   );
 }
+
+
+
 
 function Footer(){
 
@@ -141,17 +184,31 @@ function Footer(){
   // else alert("We're currently  Closed !")
   
 
-  return <footer>{isOpen && (
-   <div className="order">
-  <p>We're open unti; {closeHour}:00. Come visit us or oder online.</p>
-  <button className="btn">Order</button>
-   </div>  
-)}</footer>;
+  return <footer>{isOpen ? (
+    <Order closeHour={closeHour}  openHour={openHour}/>
+) : <p> We're happy to welcome you between {openHour}:00 and {closeHour}:00</p>}</footer>;
 
   // return React.createElement("footer", null , "We're currently  Open !");
 }
 
 
+// function Order(props){
+//  return <div className="order">
+//   <p>We're open until; {props.closeHour}:00. Come visit us or oder online.</p>
+//   <button className="btn">Order</button>
+//    </div>  
+
+// }
+
+
+//Using destructiring
+function Order({closeHour , openHour}){
+  return <div className="order">
+   <p>We're open from {openHour}: 00 {closeHour}:00. Come visit us or oder online.</p>
+   <button className="btn">Order</button>
+    </div>  
+ 
+ }
 
 
 
