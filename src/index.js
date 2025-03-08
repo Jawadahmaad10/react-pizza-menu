@@ -88,14 +88,15 @@ function Menu(){
  <main className="menu">
  <h2>Our Menu</h2>
 
- {numPizzas > 0 && 
+ {numPizzas > 0 ? 
  ( <ul className="pizzas">
   {/* {pizzaData.map((pizza) =>  (<Pizza name={pizza.name} photoName={pizza.photoName} ingredients={pizza.ingredients} /> ))} */}
   
   {/* usually we pass entire object as below   and should have a key unique key*/}
   {pizzas.map((pizza) =>  (<Pizza pizzaObj = {pizza}  key={pizza.name}/> ))}
    
- </ul>)}
+ </ul>) 
+ : <p>We're still working on our menu . Please come back later</p>  }
 
 
  {/* <Pizza 
